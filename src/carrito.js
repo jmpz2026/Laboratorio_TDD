@@ -1,6 +1,8 @@
 // Laboratorio TDD: carrito de compras
 // Escribe aquí el código SOLO después de tener una prueba en rojo.
 
+const IVA = 0.19;
+
 const CUPONES = {
   DESC10: 0.10,
   DESC20: 0.20,
@@ -56,5 +58,17 @@ export class Carrito {
   descuento() {
     if (!this.cupon) return 0;
     return Math.round(this.subtotal() * CUPONES[this.cupon]);
+  }
+
+  baseGravable() {
+    return this.subtotal() - this.descuento();
+  }
+
+  iva() {
+    return Math.round(this.baseGravable() * IVA);
+  }
+
+  total() {
+    return this.baseGravable() + this.iva();
   }
 }
